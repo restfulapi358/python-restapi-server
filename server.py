@@ -1,4 +1,6 @@
 from flask import Flask, jsonify, request
+import os
+import signal
 
 app = Flask(__name__)
 
@@ -8,6 +10,22 @@ items = [
     {"id":2, "title":"Book 2", "author":"Author 2"},
     {"id":3, "title":"Book 3", "author":"Author 3"}
 ]
+
+@app.route('/')
+def hello():
+    return 'Hello, World!'
+
+@app.route('/shutdown', methods=['GET'])
+def shutdown():
+    if request.remote_addr != '127.0.0.1':
+        return 'Shutdown only allowed from localhost', 403
+    shutdown_server()
+    return 'Server shutting down...'
+
+def shutdown_server():
+    pid = os.getpid()
+    os.kill(pid, signal.SIGINT)
+
 
 @app.route('/items', methods=['GET'])
 def get_items():
