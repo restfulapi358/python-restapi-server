@@ -16,6 +16,11 @@ app = FastAPI()
 def read_root():
     return {"message": "Hello, World!"}
 
+# Define a route
+@app.get("/sayHello")
+def read_root():
+    return {"message": "Hello, World!"}
+
 
 @app.post("/shutdown")
 def shutdown():
