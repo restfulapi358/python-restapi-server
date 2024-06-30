@@ -22,6 +22,12 @@ def read_root():
     return {"message": "Hello, World!"}
 
 
+# Define a route
+@app.get("/pi")
+def read_root():
+    return {"message": "3.142"}
+
+
 @app.post("/shutdown")
 def shutdown():
     def shutdown_server():
