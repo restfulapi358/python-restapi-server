@@ -22,10 +22,14 @@ def read_root():
     return {"message": "Hello, World!"}
 
 
-# Define a route
 @app.get("/pi")
-def read_root():
-    return {"message": "3.142"}
+def read_root(r: Optional[float] = None):
+    pi_value = 3.142
+    if r is None:
+        return {"message": pi_value}
+    else:
+        result = pi_value * r * r
+        return {"message": result}
 
 
 @app.post("/shutdown")
